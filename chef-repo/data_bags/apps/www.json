@@ -4,7 +4,7 @@
   "group": "www",
   "deploy_to": "/srv/www",
   "server_roles": ["client"],
-  "redis_role": ["server", "client"],
+  "redis_master_role": ["server", "client"],
   "ingredients": {
     "client": ["redis.yml"]
   }

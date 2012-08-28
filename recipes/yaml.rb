@@ -27,10 +27,10 @@
 search :apps do |app|
   if (app['server_roles'] & node.run_list.roles).any?
     if app.fetch("ingredients", {}).any? { |role, ingredients| node.run_list.roles.include?(role) && ingredients.include?("redis.yml") }
-      roles_clause = app['redis_role'].map { |role| "role:#{role}" }.join(" OR ")
+      roles_clause = app['redis_master_role'].map { |role| "role:#{role}" }.join(" OR ")
 
       nodes = search(:node, "(#{roles_clause}) AND chef_environment:#{node.chef_environment}")
-      nodes << node if (app['redis_role'] & node.run_list.roles).any? # node not indexed on first chef run
+      nodes << node if (app['redis_master_role'] & node.run_list.roles).any? # node not indexed on first chef run
 
       host = nodes.sort_by { |node| node.name }.reverse.map do |redis_node|
         redis_node.attribute?("cloud") ? redis_node['cloud']['local_ipv4'] : redis_node['ipaddress']

@@ -23,7 +23,8 @@ Generates a redis.yml file compatible with the redis gem.
   "group": "www",
   "deploy_to": "/srv/www",
   "server_roles": "www"
-  "redis_role": ["redis_server"],
+  "redis_master_role": ["redis_master"],
+  "redis_slave_role": ["redis_slave"],
   "ingredients": {
     "pillowfight": ["redis.yml"]
   }
